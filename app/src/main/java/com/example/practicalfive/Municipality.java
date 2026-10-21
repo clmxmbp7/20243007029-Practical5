@@ -1,15 +1,102 @@
 package com.example.practicalfive;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.button.MaterialButton;
 
 public class Municipality extends AppCompatActivity {
+
+    private int websiteStringResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_municipality);
+
+        TextProcessor textProcessor = new TextProcessor();
+        String municipality = textProcessor.processMunicipality(
+                getIntent().getStringExtra(MainActivity.EXTRA_MUNICIPALITY));
+
+        if (municipality == null) {
+            Toast.makeText(this, R.string.missing_municipality, Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
+        displayMunicipality(municipality);
+    }
+
+    private void displayMunicipality(String municipality) {
+        TextView textViewName = findViewById(R.id.textViewMunicipalityName);
+        TextView textViewInformation = findViewById(R.id.textViewInformation);
+        ImageView imageViewMunicipality = findViewById(R.id.imageViewMunicipality);
+        MaterialButton buttonVisitSite = findViewById(R.id.buttonVisitSite);
+
+        int informationIndex;
+        int imageResource;
+        int colourResource;
+
+        switch (municipality) {
+            case "Beijing":
+                informationIndex = 0;
+                imageResource = R.drawable.beijing;
+                colourResource = R.color.municipality_beijing;
+                websiteStringResource = R.string.website_beijing;
+                break;
+            case "Shanghai":
+                informationIndex = 1;
+                imageResource = R.drawable.shanghai;
+                colourResource = R.color.municipality_shanghai;
+                websiteStringResource = R.string.website_shanghai;
+                break;
+            case "Chongqing":
+                informationIndex = 2;
+                imageResource = R.drawable.chongqing;
+                colourResource = R.color.municipality_chongqing;
+                websiteStringResource = R.string.website_chongqing;
+                break;
+            case "Tianjin":
+                informationIndex = 3;
+                imageResource = R.drawable.tianjin;
+                colourResource = R.color.municipality_tianjin;
+                websiteStringResource = R.string.website_tianjin;
+                break;
+            default:
+                Toast.makeText(this, R.string.missing_municipality, Toast.LENGTH_LONG).show();
+                finish();
+                return;
+        }
+
+        String[] municipalityInformation =
+                getResources().getStringArray(R.array.municipalities_array);
+        int municipalityColour = ContextCompat.getColor(this, colourResource);
+        int contrastingTextColour = ContextCompat.getColor(
+                this,
+                municipality.equals("Chongqing")
+                        ? R.color.color_text_dark
+                        : R.color.color_text_light);
+
+        textViewName.setText(municipality);
+        textViewName.setBackgroundColor(municipalityColour);
+        textViewName.setTextColor(contrastingTextColour);
+
+        textViewInformation.setText(municipalityInformation[informationIndex]);
+        textViewInformation.setTextColor(municipalityColour);
+
+        imageViewMunicipality.setImageResource(imageResource);
+        imageViewMunicipality.setContentDescription(
+                getString(R.string.municipality_image_description, municipality));
+
+        buttonVisitSite.setBackgroundTintList(ColorStateList.valueOf(municipalityColour));
+        buttonVisitSite.setTextColor(contrastingTextColour);
+        buttonVisitSite.setContentDescription(
+                getString(R.string.official_website_description, municipality));
     }
 }
-
