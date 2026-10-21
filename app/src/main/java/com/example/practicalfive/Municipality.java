@@ -5,12 +5,17 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -22,6 +27,7 @@ public class Municipality extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_municipality);
+        applySystemBarInsets();
 
         TextProcessor textProcessor = new TextProcessor();
         String municipality = textProcessor.processMunicipality(
@@ -113,5 +119,29 @@ public class Municipality extends AppCompatActivity {
         } catch (ActivityNotFoundException exception) {
             Toast.makeText(this, R.string.no_browser_available, Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void applySystemBarInsets() {
+        View rootView = findViewById(R.id.rootMunicipality);
+        int initialLeft = rootView.getPaddingLeft();
+        int initialTop = rootView.getPaddingTop();
+        int initialRight = rootView.getPaddingRight();
+        int initialBottom = rootView.getPaddingBottom();
+
+        ViewCompat.setOnApplyWindowInsetsListener(rootView, (view, windowInsets) -> {
+            Insets systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            view.setPadding(
+                    initialLeft + systemBars.left,
+                    initialTop + systemBars.top,
+                    initialRight + systemBars.right,
+                    initialBottom + systemBars.bottom);
+            return windowInsets;
+        });
+
+        WindowCompat.getInsetsController(getWindow(), rootView)
+                .setAppearanceLightStatusBars(true);
+        WindowCompat.getInsetsController(getWindow(), rootView)
+                .setAppearanceLightNavigationBars(true);
+        ViewCompat.requestApplyInsets(rootView);
     }
 }

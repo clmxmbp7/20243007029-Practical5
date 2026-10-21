@@ -5,6 +5,7 @@
     <string name="municipality_input_label">I want to know about:</string>
     <string name="municipality_input_hint">Beijing, Shanghai, Chongqing or Tianjin</string>
     <string name="municipality_map_description">Map highlighting China\'s four municipalities</string>
+    <string name="municipality_image_default_description">Municipality photograph</string>
     <string name="municipality_image_description">Photograph of %1$s</string>
     <string name="visit_site">Visit site</string>
     <string name="invalid_municipality">Enter Beijing, Shanghai, Chongqing or Tianjin</string>

@@ -5,13 +5,13 @@ plugins {
 android {
     namespace = "com.example.practicalfive"
     compileSdk {
-        version = release(35)
+        version = release(37)
     }
 
     defaultConfig {
         applicationId = "com.example.practicalfive"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -38,4 +38,3 @@ dependencies {
     implementation(libs.constraintlayout)
     testImplementation(libs.junit)
 }
-

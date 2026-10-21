@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootMunicipality"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_default_background"
     android:paddingStart="16dp"
     android:paddingEnd="16dp">
 
@@ -40,6 +40,7 @@
             android:id="@+id/imageViewMunicipality"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/municipality_image_default_description"
             android:scaleType="centerCrop"
             tools:contentDescription="Photograph of Beijing"
             tools:src="@drawable/beijing" />
@@ -86,4 +87,3 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
