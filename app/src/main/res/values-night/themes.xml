@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.PracticalFive" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="android:fontFamily">sans</item>
+    </style>
+</resources>
+
