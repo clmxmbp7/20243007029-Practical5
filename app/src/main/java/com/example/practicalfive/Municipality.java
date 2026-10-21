@@ -1,6 +1,9 @@
 package com.example.practicalfive;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -98,5 +101,17 @@ public class Municipality extends AppCompatActivity {
         buttonVisitSite.setTextColor(contrastingTextColour);
         buttonVisitSite.setContentDescription(
                 getString(R.string.official_website_description, municipality));
+        buttonVisitSite.setOnClickListener(view -> openOfficialWebsite());
+    }
+
+    private void openOfficialWebsite() {
+        Uri website = Uri.parse(getString(websiteStringResource));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, website);
+
+        try {
+            startActivity(browserIntent);
+        } catch (ActivityNotFoundException exception) {
+            Toast.makeText(this, R.string.no_browser_available, Toast.LENGTH_LONG).show();
+        }
     }
 }
